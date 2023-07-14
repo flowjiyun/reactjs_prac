@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div> 
+  </body>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const domNode = document.getElementById("root");
+    const root = ReactDOM.createRoot(domNode);
+    let counter = 0;
+    function countUp() {
+      ++counter;
+      render();
+    }
+    function render() {
+      root.render(<Container />);
+    }
+    const Container = () => (
+      <div>
+        <h3>Total click: {counter}</h3>
+        <button onClick={countUp}>click me</button>
+      </div>
+    );
+    render();
+  </script>
+</html>
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div> 
+  </body>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const domNode = document.getElementById("root");
+    const root = ReactDOM.createRoot(domNode);
+    function App() {
+      const [counter, modifier] = React.useState(0);
+      const onClick = () => {
+        // re-render with modified data
+        modifier((counter) => counter + 1);
+        console.log(counter);
+      }
+      console.log("after");
+      console.log(counter);
+      return (
+        <div>
+          <h3>Total click: {counter}</h3>
+          <button onClick={onClick}>click me</button>
+        </div>
+      );
+    }
+    root.render(<App />);
+  </script>
+</html>
+
+
