@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const domNode = document.getElementById("root");
+    const root = ReactDOM.createRoot(domNode);
+    function ConvertMinute() {
+      const [minute, setMinute] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setMinute(event.target.value);
+      }
+      const reset = () => {
+        setMinute(0);
+      }
+      const invert = () => {
+        reset();
+        setInverted(!inverted);
+      }
+      return (
+        <div>
+          <div>
+            <label htmlFor="minute">Minute</label>
+            <input 
+              value={inverted ? (minute * 60) : minute} 
+              id="minute" 
+              type="number" 
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="hour">Hour</label>
+            <input 
+              value={inverted ? minute : Math.round(minute / 60)} 
+              id="hour" 
+              type="number" 
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={invert}>Invert</button>
+        </div>
+      );
+    }
+    function ConvertKilo() {
+      const [kilo, setKilo] = React.useState(0);
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => {
+        setKilo(event.target.value);
+      }
+      const reset = () => {
+        setKilo(0);
+      }
+      const invert = () => {
+        reset();
+        setInverted(!inverted);
+      }
+      return (
+        <div>
+          <div>
+            <label htmlFor="kilo">Kilometer</label>
+            <input 
+              value={inverted ? (kilo * 1.6) : kilo} 
+              id="kilo" 
+              type="number" 
+              onChange={onChange}
+              disabled={inverted}
+            />
+          </div>
+          <div>
+            <label htmlFor="mile">Mile</label>
+            <input 
+              value={inverted ? kilo : kilo / 1.6} 
+              id="mile" 
+              type="number" 
+              onChange={onChange}
+              disabled={!inverted}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={invert}>Invert</button>
+        </div>
+      );
+    }
+    function App() {
+      const [selected, setSelected] = React.useState("");
+      const select = (event) => {
+        setSelected(event.target.value);
+      }
+      return (
+        <div>
+          <h1>Super Changer</h1>
+          <select onChange={select}>
+            <option value="">Please select</option>
+            <option value="0">Minute & Hour</option>
+            <option value="1">Kilo & Mile</option>
+          </select>
+          {(selected === "") ? <div>please select category</div>: null}
+          {(selected === "0") ? <ConvertMinute />: null}
+          {(selected === "1") ? <ConvertKilo />: null}
+        </div>
+      );
+    }
+    root.render(<App />);
+  </script>
+</html>
